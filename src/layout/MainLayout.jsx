@@ -23,9 +23,6 @@ const MainLayout =() => {
                                 <Link to='/carts' className="nav-link" > 購物車 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link to='/checkout' className="nav-link" > 結帳 </Link>
-                            </li>
-                            <li className="nav-item">
                                 <Link to='/login' className="nav-link" > 登入 </Link>
                             </li>
                         </ul>

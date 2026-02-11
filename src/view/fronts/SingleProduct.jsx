@@ -1,28 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import Modal from 'bootstrap/js/dist/modal';
+import * as bootstrap from 'bootstrap';
+import { Watch } from "react-loader-spinner";
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-const SingleProduct =({myproductModal, productId}) => {
-    
-    const [ product, setProduct ] = useState([]);
+const SingleProduct =({myproductModal, product}) => {
+    const [ loadingCardId, setLoadingCard ] = useState(null);
     const productModalRef = useRef(null);
 
     useEffect(() => {
-        myproductModal.current = new Modal(productModalRef.current);
+        myproductModal.current = new bootstrap.Modal(productModalRef.current);
     },[myproductModal])
 
-    useEffect(() => {
-        (async() => {
-            try {
-                const response = await axios.get(`${VITE_URL}/v2/api/${VITE_PATH}/product/${productId}`)
-                setProduct(response.data.product);
-            } catch (error) {
-                console.log("單一產品頁面：", error)
-            }
-        })();
-    }, [productId]);
 
     // 調整商品數量
     const [ qty, setQty ] = useState(1);
@@ -43,8 +33,10 @@ const SingleProduct =({myproductModal, productId}) => {
     
     // 加入購物車
     const addCarts= async() => {
+        setLoadingCard(product.id);
+
         const data = {
-            "product_id": productId,
+            "product_id": product.id,
             "qty": qty
         };
 
@@ -53,10 +45,11 @@ const SingleProduct =({myproductModal, productId}) => {
             alert(response.data.message)
         } catch (error) {
             console.log("加入購物車：",error)
-        };
-
-        myproductModal.current.hide();
-        setQty(1)
+        } finally{
+            myproductModal.current.hide();
+            setQty(1);
+            setLoadingCard(null);
+        }
     };
 
     return (
@@ -97,9 +90,20 @@ const SingleProduct =({myproductModal, productId}) => {
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button onClick={()=>addCarts()} type="button" className="btn btn-primary">
-                                加入購物車
+                            <button onClick={()=>addCarts(product.id)} type="button" className="btn btn-primary"
+                                    disabled={ loadingCardId === product.id}>
+                                    { loadingCardId === product.id ? (
+                                        <Watch visible={true}
+                                               height="25"
+                                               width="25"
+                                               radius="48"
+                                               color="white"
+                                               ariaLabel="watch-loading"
+                                               wrapperStyle={{}}
+                                               wrapperClass=""/> 
+                                    ) : ( '加入購物車' )}
                             </button>
+                            
                         </div>
                     </div>
                 </div>
