@@ -9,7 +9,6 @@ const { VITE_URL, VITE_PATH } = import.meta.env;
 const Products=() => {
     const [ product, setProduct ] = useState([]);
     const [ products, setProducts ] = useState([]);
-    const [ productId, setProductId ] = useState(null);
     const [ loadingProductId, setLoadingProductId ] = useState(null);
     const myproductModal = useRef(null);
 
@@ -33,7 +32,6 @@ const Products=() => {
         } catch (error) {
             console.log("查看更多：", error)
         } finally {
-            setProductId(id);
             setLoadingProductId(null);
         }
         myproductModal.current.show();
