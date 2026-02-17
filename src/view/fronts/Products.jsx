@@ -4,24 +4,25 @@ import { ThreeDots } from "react-loader-spinner";
 import axios from "axios";
 import SingleProduct from "./SingleProduct";
 
+//RTK
+import { useSelector, useDispatch } from "react-redux";
+import { setProducts, getAsyncProducts } from "../../slices/productsSlice";
+
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
 const Products=() => {
     const [ product, setProduct ] = useState([]);
-    const [ products, setProducts ] = useState([]);
     const [ loadingProductId, setLoadingProductId ] = useState(null);
     const myproductModal = useRef(null);
 
-    useEffect(()=> {
-        (async() => {
-            try {
-                const response = await axios.get(`${VITE_URL}/v2/api/${VITE_PATH}/products/all`)
-                setProducts(response.data.products);
-            } catch (error) {
-                console.log("取得產品列表：", error)
-            }
-        })()
-    },[]);
+    const products = useSelector( state => {
+        return state.products.products
+    })
+
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(getAsyncProducts('products'))
+    },[])
 
 
     const handleView = async(id) =>{

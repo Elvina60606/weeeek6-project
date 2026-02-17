@@ -4,6 +4,11 @@ import Login from "../view/Login";
 import Products from "../view/fronts/Products";
 import Carts from "../view/fronts/Carts";
 import NotFound from "../view/NotFound";
+import AdminLayout from "../layout/AdminLayout";
+import AdminProducts from "../view/admin/AdminProducts";
+import AdminOrders from "../view/admin/AdminOrders";
+
+import ProtectedRoute from "./ProtectedRoute";
 
 const routes = [
     {
@@ -11,20 +16,37 @@ const routes = [
         element: <MainLayout />,
         children: [
             {
-                path:'/',
+                index: true,
                 element: <Home />
             },
             {
-                path:'/login',
+                path:'login',
                 element: <Login />
             },
             {
-                path:'/products',
+                path:'products',
                 element: <Products />
             },
             {
-                path:'/carts',
+                path:'carts',
                 element: <Carts />
+            },
+        ]
+    },
+    {
+        path: 'admin',
+        element: 
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>,
+        children: [
+            {
+                path: 'product',
+                element: <AdminProducts />,
+            },
+            {
+                path: 'order',
+                element: <AdminOrders />,
             },
         ]
     },

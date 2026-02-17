@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { replace, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const { VITE_URL } = import.meta.env;
 
@@ -15,7 +15,7 @@ const Login =() => {
     } = useForm ({
         mode: 'onChange',
         defaultValues: {
-            username: '888888@gmail.com',
+            username: 'cat250070@livemail.tw',
             password: '****',
         }
     });
@@ -23,13 +23,15 @@ const Login =() => {
     const onSubmit = async(formData) =>{
         try {
             const response = await axios.post(`${VITE_URL}/v2/admin/signin`, formData )
-            alert(response.data.message);
+            const { token, expired } = response.data;
+            document.cookie = `reactToken=${token}; expires=${new Date(expired)};`;
+            axios.defaults.headers.common['Authorization'] = token;
+
             setTimeout(() => {
-                navigate('/', {
-                    replace: true,
-                }, 2000)
-            })            
-        } catch (error) {
+                navigate('/admin/product', { replace: true,})
+                }, 2000);
+            }            
+        catch (error) {
             console.log("登入帳號：", error)
         }
     }
