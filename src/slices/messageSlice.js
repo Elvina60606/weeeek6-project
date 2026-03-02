@@ -3,14 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const messageSlice = createSlice({
     name: 'message',
     initialState: {
-        messages: [
-            // {
-            //     id: 999,
-            //     type: "success",
-            //     title: "成功",
-            //     text: "test222222",
-            // },
-        ],
+        messages: [],
     },
     reducers: {
         createMessage( state, actions ){

@@ -322,7 +322,7 @@ const ProductModal =({isOpen, onClose, modalType, templateProduct, setTemplatePr
                   </div>
                 </div>
            </div>
-      </div>
+        </div>
     
     </>)
 }

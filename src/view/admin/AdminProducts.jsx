@@ -22,18 +22,18 @@ const INITIAL_TEMPLATE_DATA = {
 };
 
 function AdminProducts() {
-  const [ formData, setFormData ] = useState({
-    username : "",
-    password : ""
-})
+//   const [ formData, setFormData ] = useState({
+//     username : "",
+//     password : ""
+// })
 
-  const handleInput =(e) =>{
-    const { name, value } = e.target
-    setFormData((preData) => ({
-        ...preData,
-        [name] : value
-    }))
-  }
+//   const handleInput =(e) =>{
+//     const { name, value } = e.target
+//     setFormData((preData) => ({
+//         ...preData,
+//         [name] : value
+//     }))
+//   }
   
 {/*-------產品資料-------*/}
 const [templateProduct, setTemplateProduct] = useState(INITIAL_TEMPLATE_DATA);
