@@ -17,7 +17,7 @@ const AdminLayout =() => {
             
             setTimeout(() => {
                 navigate('/', {replace: true})
-            }, 1500)
+            }, 1000)
         } catch (error) {
             console.log(error)
         }

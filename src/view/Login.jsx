@@ -15,7 +15,7 @@ const Login =() => {
     } = useForm ({
         mode: 'onChange',
         defaultValues: {
-            username: 'cat250070@livemail.tw',
+            username: 'example@gmail.tw',
             password: '****',
         }
     });

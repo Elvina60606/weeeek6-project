@@ -81,7 +81,12 @@ const [modalType, setModalType] = useState("")
       const response = await axios[method](url, productData)
       dispatch(getAsyncMessage(response.data));
       dispatch(getAdminAsyncProducts());
-      setIsOpen(false)
+      
+      const success = response.data.success;
+      if (success){
+        setIsOpen(false)
+      };
+
     } catch (error) {
       dispatch(getAsyncMessage(error.response.data))
     }
@@ -92,7 +97,7 @@ const [modalType, setModalType] = useState("")
     try {
       const response = await axios.delete(`${VITE_URL}/api/${VITE_PATH}/admin/product/${id}`)
       dispatch(getAsyncMessage({
-        success: false,
+        success: true,
         message: '成功刪除產品',
       }));
       dispatch(getAdminAsyncProducts());

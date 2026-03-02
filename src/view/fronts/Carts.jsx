@@ -4,11 +4,14 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form";
 import { ThreeDots } from "react-loader-spinner";
+import { getAsyncMessage } from "../../slices/messageSlice";
+import { useDispatch } from "react-redux";
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
 
 const Carts =() => {
+    const dispatch = useDispatch();
     const [ carts, setCarts ] = useState([]);
     const [ loadingTrashId, setLoadingTrashId ] = useState(null);
 
@@ -28,7 +31,7 @@ const Carts =() => {
         setLoadingTrashId(id);
         try {
             const response = await axios.delete(`${VITE_URL}/v2/api/${VITE_PATH}/cart/${id}`)
-            alert(response.data.message)
+            dispatch(getAsyncMessage(response.data));
             setCarts((prev)=> prev.filter((item) => item.id !== id));
         } catch (error) {
             console.log("刪除購物車:", error)
@@ -56,7 +59,7 @@ const Carts =() => {
 
         try {
             const response = await axios.post(`${VITE_URL}/api/${VITE_PATH}/order`, { data })
-            alert(response.data.message);
+            dispatch(getAsyncMessage(response.data));
             setCarts([]);
             reset();
         } catch (error) {
@@ -88,8 +91,7 @@ const Carts =() => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {
-                                                carts?.map((cart) => {
+                                            { carts?.map((cart) => {
                                                     return (
                                                         <tr key={cart.id}>
                                                             <td className="text-start">{cart.product.title}</td>
@@ -128,7 +130,7 @@ const Carts =() => {
                                     <form className="col-md-6" onSubmit={handleSubmit(onSubmit)}>
                                         <div className="mb-3">
                                         <label htmlFor="email" className="form-label">
-                                            Email
+                                            Email<span className="text-danger ms-1">*</span>
                                         </label>
                                         <input
                                             id="email"
@@ -151,7 +153,7 @@ const Carts =() => {
 
                                         <div className="mb-3">
                                         <label htmlFor="name" className="form-label">
-                                            收件人姓名
+                                            收件人姓名<span className="text-danger ms-1">*</span>
                                         </label>
                                         <input
                                             id="name"
@@ -174,7 +176,7 @@ const Carts =() => {
 
                                         <div className="mb-3">
                                         <label htmlFor="tel" className="form-label">
-                                            收件人電話
+                                            收件人電話<span className="text-danger ms-1">*</span>
                                         </label>
                                         <input
                                             id="tel"
@@ -201,7 +203,7 @@ const Carts =() => {
 
                                         <div className="mb-3">
                                         <label htmlFor="address" className="form-label">
-                                            收件人地址
+                                            收件人地址<span className="text-danger ms-1">*</span>
                                         </label>
                                         <input
                                             id="address"

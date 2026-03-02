@@ -18,7 +18,7 @@ const MessageToast =() => {
                                     aria-label="Close">
                             </button>
                         </div>
-                        <div className="toast-body">
+                        <div className="toast-body text-center">
                             {message.text}
                         </div>
                     </div>

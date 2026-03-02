@@ -6,7 +6,7 @@ import SingleProduct from "./SingleProduct";
 
 //RTK
 import { useSelector, useDispatch } from "react-redux";
-import { setProducts, getAsyncProducts } from "../../slices/productsSlice";
+import { getAsyncProducts } from "../../slices/productsSlice";
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 

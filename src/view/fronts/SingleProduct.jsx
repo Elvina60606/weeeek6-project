@@ -2,10 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import * as bootstrap from 'bootstrap';
 import { Watch } from "react-loader-spinner";
+import { getAsyncMessage } from "../../slices/messageSlice";
+import { useDispatch } from "react-redux";
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
 const SingleProduct =({myproductModal, product}) => {
+    const dispatch = useDispatch();
     const [ loadingCardId, setLoadingCard ] = useState(null);
     const productModalRef = useRef(null);
 
@@ -42,7 +45,7 @@ const SingleProduct =({myproductModal, product}) => {
 
         try {
             const response = await axios.post(`${VITE_URL}/v2/api/${VITE_PATH}/cart`, {data})
-            alert(response.data.message)
+            dispatch(getAsyncMessage(response.data))
         } catch (error) {
             console.log("加入購物車：",error)
         } finally{
@@ -79,6 +82,7 @@ const SingleProduct =({myproductModal, product}) => {
                                 </button>
                                 <input className="form-control"
                                        type="number"
+                                       min='0'
                                        name="qty"
                                        value={qty}
                                        onChange={(e)=>handleOnChange(e)}/>

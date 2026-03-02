@@ -1,12 +1,10 @@
 import * as bootstrap from 'bootstrap';
 import { useRef, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
 
 const ProductModal =({isOpen, onClose, modalType, templateProduct, setTemplateProduct, updateProduct, delProduct}) => {
     const productModalRef = useRef(null);
     const modalInstance = useRef(null);
-    const dispatch = useDispatch();
 
     useEffect(() => {
         modalInstance.current =
