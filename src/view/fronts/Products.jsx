@@ -47,7 +47,9 @@ const Products=() => {
                             <div className="card mb-3" key={product.id} style={{maxWidth: 540}}>
                                 <div className="row g-0">
                                     <div className="col-md-5">
-                                        <img src={product.imageUrl} className="img-fluid rounded-start" alt="..." />
+                                        <img src={product.imageUrl} 
+                                             style={{height:250, width:250}}
+                                             className="img-fluid rounded-start object-fit-contain" alt="product-image" />
                                     </div>
                                     <div className="col-md-7">
                                         <div className="card-body">
